@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql
+  namespace: wiseinf-system
 spec:
   selector:
     matchLabels:
@@ -21,7 +22,7 @@ spec:
         image: mysql:8.0
         env:
           - name: MYSQL_ROOT_PASSWORD
-            value: wisecost
+            value: optimizer
         ports:
           - containerPort: 3306
             protocol: TCP
@@ -35,6 +36,15 @@ spec:
         volumeMounts:
           - name: mysql-persistent-storage
             mountPath: /var/lib/mysql
+      # affinity:
+      #   nodeAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       nodeSelectorTerms:
+      #       - matchExpressions:
+      #         - key: kubernetes.io/hostname
+      #           operator: In
+      #           values:
+      #           - {should specify the hostname}
       volumes:
         - name: mysql-persistent-storage
           persistentVolumeClaim:
@@ -59,6 +69,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-pv-claim
+  namespace: wiseinf-system
 spec:
   storageClassName: manual
   accessModes:
@@ -71,6 +82,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mysql
+  namespace: wiseinf-system
 spec:
   ports:
     - port: 3306

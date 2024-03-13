@@ -135,6 +135,7 @@ metadata:
   labels:
     app: wisecost-ui
   name:  wisecost-ui-service
+  namespace: wiseinf-system
 spec:
   ports:
     - port: 80
