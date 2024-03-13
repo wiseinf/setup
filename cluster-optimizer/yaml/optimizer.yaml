@@ -77,7 +77,7 @@ spec:
         runAsUser: 0
       containers:
         - name: optimizer-ui
-          image: wiseinf/cluster-optimizer-ui:1.1.0
+          image: wiseinf/optimizer-ui:1.1.0
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: optimizer-nginx-config
@@ -96,7 +96,6 @@ spec:
           image: wiseinf/optimizer:1.1.0
           command:
             - "/wiseinf/optimizer"
-          #  - "--features=APIServer"
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: optimizer-data-volume
