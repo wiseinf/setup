@@ -96,6 +96,8 @@ spec:
           image: wiseinf/optimizer:1.1.0
           command:
             - "/wiseinf/optimizer"
+            - "--log-enable-console=true"
+            - "--log-enable-color=true"
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: optimizer-data-volume
