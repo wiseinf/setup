@@ -41,13 +41,13 @@ data:
       port: 7070
     engine:
       maxQueryDuration: 1h
-    storage:
+    optconf:
       dataSource:
-        name: "optimizer:Optimizer~@tcp(127.0.0.1:3306)/optimizer?charset=utf8mb4&parseTime=true&loc=Local"
+        name: "root:Optimizer~@tcp(127.0.0.1:3306)/optconf?createDatabaseIfNotExist=true&charset=utf8mb4&parseTime=true&loc=Local"
         maxOpenConns: 10
-    optimize:
+    optdata:
       dataSource:
-        name: "optimizer:Optimizer~@tcp(127.0.0.1:3306)/optimizer?charset=utf8mb4&parseTime=true&loc=Local"
+        name: "root:Optimizer~@tcp(127.0.0.1:3306)/optdata?createDatabaseIfNotExist=true&charset=utf8mb4&parseTime=true&loc=Local"
         maxOpenConns: 10
 
 ---
@@ -78,7 +78,7 @@ spec:
       containers:
         - name: optimizer-ui
           image: wiseinf/optimizer-ui:1.1.0
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           volumeMounts:
             - name: optimizer-nginx-config
               mountPath: /etc/nginx/conf.d
@@ -96,7 +96,7 @@ spec:
           image: wiseinf/optimizer:1.1.0
           command:
             - "/wiseinf/optimizer"
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           volumeMounts:
             - name: optimizer-data-volume
               mountPath: /wiseinf/data
